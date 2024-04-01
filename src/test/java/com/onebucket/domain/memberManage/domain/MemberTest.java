@@ -1,7 +1,6 @@
 package com.onebucket.domain.memberManage.domain;
 
 import com.onebucket.domain.memberManage.dao.MemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
