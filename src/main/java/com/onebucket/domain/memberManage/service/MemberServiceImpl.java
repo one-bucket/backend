@@ -3,7 +3,9 @@ package com.onebucket.domain.memberManage.service;
 
 import com.onebucket.domain.memberManage.dao.MemberRepository;
 import com.onebucket.domain.memberManage.domain.Member;
-import com.onebucket.domain.memberManage.dto.BasicMemberDto;
+import com.onebucket.domain.memberManage.dto.CreateMemberRequestDto;
+import com.onebucket.domain.memberManage.dto.ReadMemberResponseDto;
+import com.onebucket.domain.memberManage.dto.UpdateMemberRequestDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,18 +20,18 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
 
     @Override
-    public void createMember(BasicMemberDto basicMemberDto) throws Exception {
+    public void createMember(CreateMemberRequestDto createRequestDto) throws Exception {
         Member member = Member.builder()
-                .username(basicMemberDto.getUsername())
-                .password(basicMemberDto.getPassword())
-                .nickName(basicMemberDto.getNickName())
+                .username(createRequestDto.getUsername())
+                .password(createRequestDto.getPassword())
+                .nickName(createRequestDto.getNickName())
                 .build();
 
         memberRepository.save(member);
     }
 
     @Override
-    public BasicMemberDto readMember(String username) {
+    public ReadMemberResponseDto readMember(String username) {
         Member member = memberRepository.findByUsername(username)
                 .orElse(Member.builder()
                         .username("NULL")
@@ -37,19 +39,18 @@ public class MemberServiceImpl implements MemberService{
                         .nickName("NULL")
                         .build());
 
-        return BasicMemberDto.builder()
+        return ReadMemberResponseDto.builder()
                 .username(member.getUsername())
-                .password("********")
                 .nickName(member.getNickName())
                 .build();
     }
 
     @Override
-    public void updateMember(BasicMemberDto basicMemberDto) throws Exception {
-        Member member = memberRepository.findByUsername(basicMemberDto.getUsername())
+    public void updateMember(String username, UpdateMemberRequestDto updateRequestDto) throws Exception {
+        Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("user not found"));
 
-        member.setNickName(basicMemberDto.getNickName());
+        member.setNickName(updateRequestDto.getNickName());
         memberRepository.save(member);
     }
 

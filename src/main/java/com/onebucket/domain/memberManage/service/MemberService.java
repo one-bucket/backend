@@ -1,8 +1,8 @@
 package com.onebucket.domain.memberManage.service;
 
-import com.onebucket.domain.memberManage.dto.BasicMemberDto;
-import jakarta.validation.Valid;
-import org.springframework.validation.annotation.Validated;
+import com.onebucket.domain.memberManage.dto.CreateMemberRequestDto;
+import com.onebucket.domain.memberManage.dto.ReadMemberResponseDto;
+import com.onebucket.domain.memberManage.dto.UpdateMemberRequestDto;
 
 
 /**
@@ -14,11 +14,11 @@ import org.springframework.validation.annotation.Validated;
  */
 public interface MemberService {
 
-    void createMember(BasicMemberDto basicMemberDto) throws Exception;
+    void createMember(CreateMemberRequestDto CreateMemberRequestDto) throws Exception;
 
-    BasicMemberDto readMember(String username);
+    ReadMemberResponseDto readMember(String username);
 
-    void updateMember(BasicMemberDto basicMemberDto) throws Exception;
+    void updateMember(String username, UpdateMemberRequestDto updateMemberRequestDto) throws Exception;
 
     void deleteMember(String username) throws Exception;
 }
