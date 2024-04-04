@@ -9,6 +9,7 @@ import com.onebucket.domain.memberManage.dto.UpdateMemberRequestDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void createMember(CreateMemberRequestDto createRequestDto) throws Exception {
         Member member = Member.builder()
                 .username(createRequestDto.getUsername())
-                .password(createRequestDto.getPassword())
+                .password(passwordEncoder.encode(createRequestDto.getPassword()))
                 .nickName(createRequestDto.getNickName())
                 .build();
 
