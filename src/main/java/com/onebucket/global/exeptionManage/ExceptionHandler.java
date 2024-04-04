@@ -1,4 +1,4 @@
-package com.onebucket.global.utils;
+package com.onebucket.global.exeptionManage;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;

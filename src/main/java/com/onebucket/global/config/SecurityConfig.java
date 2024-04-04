@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth) ->
                         auth.requestMatchers("/sign-in").permitAll()
                                 .requestMatchers("/register").permitAll()
-                                .requestMatchers("/error").permitAll()
+                                .requestMatchers("/test-test").permitAll()
                                 .requestMatchers("members/test").hasRole("GUEST")
                 .anyRequest().authenticated())
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenValidator),

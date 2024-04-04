@@ -1,8 +1,6 @@
 package com.onebucket.global.auth.jwtAuth.filter;
 
-import com.onebucket.global.auth.jwtAuth.utils.JwtTokenProvider;
 import com.onebucket.global.auth.jwtAuth.utils.JwtTokenValidator;
-import com.onebucket.global.utils.ExceptionHandler;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -35,12 +33,11 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
         //일부 주소 필터 적용 제거
         if ("/sign-in".equals(url)
-                || "/register".equals(url)) {
+                || "/register".equals(url) || "/test-test".equals(url)) {
+            log.error("why {}", url);
             chain.doFilter(request, response);
             return;
         }
-        log.error("why {}", url);
-        log.error("hello2");
         try {
             jwtTokenValidator.validToken(token);
         } catch(Exception e) {
