@@ -27,20 +27,7 @@ public class MemberController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody CreateMemberRequestDto createMemberRequestDto) {
-
-        try{
-            memberService.createMember(createMemberRequestDto);
-        } catch (ConstraintViolationException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("value incorrect, maybe username");
-        } catch(SQLException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("un-handle SQL exception");
-        } catch(Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("un-handle exception");
-        }
-
+        memberService.createMember(createMemberRequestDto);
         return ResponseEntity.ok("success register");
     }
 

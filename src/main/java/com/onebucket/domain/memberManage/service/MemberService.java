@@ -14,11 +14,11 @@ import com.onebucket.domain.memberManage.dto.UpdateMemberRequestDto;
  */
 public interface MemberService {
 
-    void createMember(CreateMemberRequestDto CreateMemberRequestDto) throws Exception;
+    void createMember(CreateMemberRequestDto CreateMemberRequestDto);
 
     ReadMemberResponseDto readMember(String username);
 
-    void updateMember(String username, UpdateMemberRequestDto updateMemberRequestDto) throws Exception;
+    void updateMember(String username, UpdateMemberRequestDto updateMemberRequestDto);
 
-    void deleteMember(String username) throws Exception;
+    void deleteMember(String username);
 }

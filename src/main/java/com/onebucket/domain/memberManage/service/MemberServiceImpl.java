@@ -25,7 +25,7 @@ public class MemberServiceImpl implements MemberService{
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void createMember(CreateMemberRequestDto createRequestDto) throws Exception {
+    public void createMember(CreateMemberRequestDto createRequestDto) {
         Member member = Member.builder()
                 .username(createRequestDto.getUsername())
                 .password(passwordEncoder.encode(createRequestDto.getPassword()))
@@ -47,7 +47,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void updateMember(String username, UpdateMemberRequestDto updateRequestDto) throws Exception {
+    public void updateMember(String username, UpdateMemberRequestDto updateRequestDto) {
         Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("user not found"));
 
@@ -56,7 +56,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void deleteMember(String username) throws Exception {
+    public void deleteMember(String username){
         memberRepository.deleteByUsername(username);
     }
 }
