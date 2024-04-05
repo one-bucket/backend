@@ -8,10 +8,16 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum CommonErrorCode implements ErrorCode {
 
-    INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "Invalid parameter included"),
-    RESOURCE_NOT_FOUND(HttpStatus.NOT_FOUND, "Resource not exists"),
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
+    INVALID_PARAMETER("2001",HttpStatus.BAD_REQUEST, "Invalid parameter included"),
+    RESOURCE_NOT_FOUND("2002",HttpStatus.NOT_FOUND, "Resource not exists"),
+    INTERNAL_SERVER_ERROR("2003",HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
 
+    private final String code;
     private final HttpStatus httpStatus;
     private final String message;
+
+    @Override
+    public String getType() {
+        return "IM_AN_APPLE_PIE";
+    }
 }

@@ -12,6 +12,6 @@ public class SignInRequestDto {
     @NotBlank(message = "username must not be empty.")
     String username;
 
-    @NotBlank(message = "username must not be empty.")
+    @NotBlank(message = "password must not be empty.")
     String password;
 }

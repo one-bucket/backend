@@ -1,6 +1,16 @@
 package com.onebucket.global.auth.jwtAuth.filter;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onebucket.global.auth.jwtAuth.utils.JwtTokenValidator;
+import com.onebucket.global.exeptionManage.errorCode.JwtErrorCode;
+import com.onebucket.global.exeptionManage.exceptionHandler.ErrorResponseGenerator;
+import com.onebucket.global.exeptionManage.exceptions.AuthorityNotFoundException;
+import io.jsonwebtoken.ClaimJwtException;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -39,17 +49,33 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             return;
         }
         try {
-            jwtTokenValidator.validToken(token);
-        } catch(Exception e) {
-            //ExceptionHandler.handleJwtException(e, httpResponse);
-            chain.doFilter(request, response);
-            return;
+            if(token != null & jwtTokenValidator.validToken(token)){
+                Authentication authentication = jwtTokenValidator.getAuthentication(token);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                chain.doFilter(request, response);
+            }
+        } catch (ExpiredJwtException e) {
+            httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            httpResponse.getWriter().write(convertErrorToJson(JwtErrorCode.EXPIRED_TOKEN));
+        } catch (SignatureException e) {
+            httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            httpResponse.getWriter().write(convertErrorToJson(JwtErrorCode.INVALID_SIGNATURE_TOKEN));
+        } catch (MalformedJwtException e) {
+            httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            httpResponse.getWriter().write(convertErrorToJson(JwtErrorCode.INVALID_FORMED_TOKEN));
+        } catch (ClaimJwtException e) {
+            httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            httpResponse.getWriter().write(convertErrorToJson(JwtErrorCode.INVALID_CLAIM_TOKEN));
+        } catch (AuthorityNotFoundException e) {
+            httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            httpResponse.getWriter().write(convertErrorToJson(JwtErrorCode.AUTHORITY_NOT_FOUND_TOKEN));
+        } catch (JwtException e) {
+            httpResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            httpResponse.getWriter().write(convertErrorToJson(JwtErrorCode.UNSUPPORTED_JWT_ERROR));
         }
 
-        Authentication authentication = jwtTokenValidator.getAuthentication(token);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        chain.doFilter(request, response);
+
 
     }
 
@@ -59,5 +85,12 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             return bearerToken.substring(7);
         }
         return null;
+    }
+    private String convertErrorToJson(JwtErrorCode errorCode) throws JsonProcessingException {
+        if (errorCode == null) {
+            return null;
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(ErrorResponseGenerator.makeErrorResponse(errorCode));
     }
 }
