@@ -6,6 +6,8 @@ import com.onebucket.global.auth.jwtAuth.entity.JwtToken;
 import com.onebucket.global.auth.jwtAuth.refreshToken.RefreshTokenService;
 import com.onebucket.global.auth.jwtAuth.utils.JwtTokenProvider;
 import com.onebucket.global.auth.jwtAuth.utils.JwtTokenValidator;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -38,10 +40,17 @@ public class RefreshTokenController {
 
         String accessToken = request.getHeader("Authorization");
 
+
         if (accessToken != null && accessToken.startsWith("Bearer ")) {
             accessToken = accessToken.substring(7);
         }
-        log.error("access {}", accessToken);
+        try {
+            jwtTokenValidator.validToken(accessToken);
+        } catch(ExpiredJwtException ignore) {
+
+        } catch(JwtException e) {
+            throw  e;
+        }
 
         String token = refreshTokenRequestDto.getRefreshToken();
         if(token != null & jwtTokenValidator.validToken(token) & refreshTokenService.isTokenExist(token)) {
