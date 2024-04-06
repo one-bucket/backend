@@ -38,6 +38,6 @@ public class SignInController {
     @PostMapping("/test-test")
     public ResponseEntity<?> testMethod() {
         return ResponseEntity.status(HttpStatus.OK)
-                .body("why");
+                .body("test");
     }
 }
