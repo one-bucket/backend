@@ -25,7 +25,8 @@ Each class should be accompanied by comments that include the following informat
 
 ```
 /**
- * Class Name : 
+ * Class Name :   <br>
+ * usage: 
  * <pre>
  * [description start]
  *
