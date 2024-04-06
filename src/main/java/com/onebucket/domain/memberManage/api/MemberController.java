@@ -4,22 +4,24 @@ import com.onebucket.domain.memberManage.dto.CreateMemberRequestDto;
 import com.onebucket.domain.memberManage.dto.UpdateMemberRequestDto;
 import com.onebucket.domain.memberManage.service.MemberService;
 
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.SQLException;
 
 import static com.onebucket.global.utils.SecurityUtils.getCurrentUsername;
 
+/**
+ *
+ */
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class MemberController {
 
     private final MemberService memberService;
@@ -40,14 +42,15 @@ public class MemberController {
     @PostMapping("/member/update")
     public ResponseEntity<?> memberUpdate(@RequestBody UpdateMemberRequestDto updateMemberRequestDto) {
         String username = getCurrentUsername();
-//        try {
-//            memberService.updateMember(username, updateMemberRequestDto);
-//        } catch (EntityNotFoundException e) {
-//            responseEntityCreator.createResponseEntity(ErrorCode_pre.UNKNOWN_USER);
-//        } catch (Exception e) {
-//            responseEntityCreator.createResponseEntity(ErrorCode_pre.UNSUPPORTED_AUTHENTICATION_ERROR);
-//        }
+        memberService.updateMember(username, updateMemberRequestDto);
         return ResponseEntity.ok("success update");
+    }
+
+    @PostMapping("/member/quit")
+    public ResponseEntity<?> memberQuit() {
+        String username = getCurrentUsername();
+        memberService.deleteMember(username);
+        return ResponseEntity.ok("success delete");
     }
 
 }

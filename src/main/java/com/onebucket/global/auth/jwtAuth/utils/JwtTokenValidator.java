@@ -35,8 +35,8 @@ public class JwtTokenValidator {
                     .build()
                     .parseClaimsJws(token);
             return true;
-
     }
+
 
     public Authentication getAuthentication(String accessToken) {
 

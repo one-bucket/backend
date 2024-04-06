@@ -24,8 +24,6 @@ public class SignInServiceImpl implements SignInService{
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(username, password);
 
-        log.error("hello1");
-
         Authentication authentication = authenticationManagerBuilder
                 .getObject().authenticate(authenticationToken);
 

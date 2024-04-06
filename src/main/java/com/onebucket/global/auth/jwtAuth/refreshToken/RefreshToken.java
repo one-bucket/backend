@@ -28,11 +28,11 @@ public class RefreshToken {
      */
     @Id
     @Column(updatable = false)
-    private String username;
+    private String refreshToken;
 
     /**
      * return username with refreshToken to validate token.
      */
     @Column(updatable = false, nullable = false)
-    private String refreshToken;
+    private String username;
 }

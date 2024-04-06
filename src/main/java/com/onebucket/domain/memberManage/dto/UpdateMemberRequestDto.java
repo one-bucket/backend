@@ -1,13 +1,11 @@
 package com.onebucket.domain.memberManage.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Builder
 @Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UpdateMemberRequestDto {
 
     private String nickName;
