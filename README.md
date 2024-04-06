@@ -8,8 +8,39 @@
  \/___/  \/_/\/_/ \/____/             \/___/   \/___/  \/____/    \/_/\/_/ \/____/    \/__/
 </pre>
 
+# How to describe comment - javadocs...
 
+### Comments for classses
+Each class should be accompanied by comments that include the following information:  
+
+- Author: The creator of the class.  
+- Last Modified Date: The date of the most recent update (based on commit history).  
+- Purpose/Functionality: A brief overview of what the class does or is responsible for.  
+- Annotations: Any special annotations that the class may have (e.g., @Entity for database entities in Java).  
+- Constructors: Description of the class constructors and their roles.  
+- Methods: A brief on the key methods contained within the class.  
+- Usage: Situations or conditions under which the class should be used.  
+
+- Example:
+
+```
+/**
+ * Class Name : 
+ * <pre>
+ * [description start]
+ *
+ * </pre>
+ * <p>
+ * Pattern and Annotation :  
+ *   [such as Builder or Getter,Setter]
+ * </p>
+ * @author SangHyeok
+ * @version 24.4.6
+ * @see [other class or method that used or using this class]
+ */
+```
 # about source code - SPRING
+
 
 The source code for our project is meticulously organized within the Java package structure, 
 comprising two main categories: `domain` and `global`.
