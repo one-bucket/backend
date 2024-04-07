@@ -1,5 +1,5 @@
 
-REPOSITORY=/home/ubuntu/one-bucket
+REPOSITORY=/home/ubuntu/bucket
 cd $REPOSITORY
 
 APP_NAME=one-bucket
