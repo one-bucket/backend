@@ -2,7 +2,7 @@
 REPOSITORY=/home/ubuntu/one-bucket
 cd $REPOSITORY
 
-APP_NAME=one_bucket
+APP_NAME=one-bucket
 JAR_NAME=$(ls $REPOSITORY/build/libs/ | grep 'SNAPSHOT.jar' | tail -n 1)
 JAR_PATH=$REPOSITORY/build/libs/$JAR_NAME
 
@@ -18,4 +18,4 @@ else
 fi
 
 echo "> $JAR_PATH 배포"
-nohup java -jar $JAR_PATH > /dev/null 2> /dev/null < /dev/null &
+nohup java -jar $JAR_PATH
