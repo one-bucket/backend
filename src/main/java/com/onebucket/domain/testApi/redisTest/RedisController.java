@@ -3,17 +3,15 @@ package com.onebucket.domain.testApi.redisTest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/test")
 public class RedisController {
     private final RedisService redisService;
 
-    @PostMapping("redis/set")
+    @PostMapping("/redis/set")
     public ResponseEntity<?> setData(@RequestBody RedisDto redisDto) {
         redisService.setData(redisDto.getKey(), redisDto.getValue(), 5L);
         return ResponseEntity.ok("success redis set");
@@ -31,8 +29,8 @@ public class RedisController {
     }
 
     @DeleteMapping("/redis/delete")
-    public ResponseEntity<?> deleteData(@RequestBody RedisDto redisDto) {
-        redisService.deleteData(redisDto.getKey());
+    public ResponseEntity<?> deleteData(@RequestParam("key") String key) {
+        redisService.deleteData(key);
         return ResponseEntity.ok("delete success");
     }
 }

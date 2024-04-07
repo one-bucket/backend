@@ -42,7 +42,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         String url = ((HttpServletRequest) request).getRequestURI();
 
         //일부 주소 필터 적용 제거
-        if ("/sign-in".equals(url) || "/token-refresh".equals(url) || url.startsWith("/redis/")
+        if ("/sign-in".equals(url) || "/token-refresh".equals(url) || url.startsWith("/test/")
                 || "/register".equals(url) || "/test-test".equals(url)) {
             log.error("why {}", url);
             chain.doFilter(request, response);
