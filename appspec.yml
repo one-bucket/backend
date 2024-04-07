@@ -4,6 +4,7 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/one-bucket
+    overwrite: true
 permission:
   - object: /home/ubuntu/one-bucket/
     owner: ubuntu
