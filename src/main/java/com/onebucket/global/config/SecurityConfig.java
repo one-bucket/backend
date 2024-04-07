@@ -36,6 +36,7 @@ public class SecurityConfig {
                                 .requestMatchers("/register").permitAll()
                                 .requestMatchers("/test-test").permitAll()
                                 .requestMatchers("/token-refresh").permitAll()
+                                .requestMatchers("/redis/**").permitAll()
                                 .requestMatchers("members/test").hasRole("GUEST")
                 .anyRequest().authenticated())
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenValidator),
