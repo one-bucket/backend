@@ -1,6 +1,7 @@
 package com.onebucket.domain.memberManage.domain;
 
 
+import com.onebucket.domain.univInfoManage.domain.University;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -46,6 +47,10 @@ public class Member {
 
     @Column(nullable = false, unique = true)
     private String nickName;
+
+    @ManyToOne
+    @JoinColumn(name="univ_id")
+    private University university;
 
     @ElementCollection(fetch=FetchType.EAGER)
     @Builder.Default
