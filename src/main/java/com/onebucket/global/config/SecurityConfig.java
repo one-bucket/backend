@@ -33,10 +33,11 @@ public class SecurityConfig {
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((auth) ->
                         auth.requestMatchers("/sign-in").permitAll()
-                                .requestMatchers("/register").permitAll()
+                                .requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/test-test").permitAll()
                                 .requestMatchers("/token-refresh").permitAll()
                                 .requestMatchers("/test/**").permitAll()
+                                .requestMatchers("/universities").permitAll()
                                 .requestMatchers("members/test").hasRole("GUEST")
                 .anyRequest().authenticated())
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenValidator),

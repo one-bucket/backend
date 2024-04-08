@@ -43,8 +43,8 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
         //일부 주소 필터 적용 제거
         if ("/sign-in".equals(url) || "/token-refresh".equals(url) || url.startsWith("/test/")
-                || "/register".equals(url) || "/test-test".equals(url)) {
-            log.error("why {}", url);
+                || "/universities".equals(url)
+                || url.startsWith("/register/") || "/test-test".equals(url)) {
             chain.doFilter(request, response);
             return;
         }

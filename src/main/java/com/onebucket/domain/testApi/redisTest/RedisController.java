@@ -1,5 +1,6 @@
 package com.onebucket.domain.testApi.redisTest;
 
+import com.onebucket.global.redis.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
