@@ -19,6 +19,13 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import javax.swing.text.html.parser.Entity;
 import java.util.Random;
 
+/**
+ * Provide mail service to send, check and else. <br>
+ * Use JavaMailSender to send email.
+ *
+ * @author SangHyeok
+ * @version 0.0.1
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -26,7 +33,17 @@ public class EmailServiceImpl implements EmailService {
     private final UniversityRepository universityRepository;
     private final JavaMailSender javaMailSender;
     private final SpringTemplateEngine springTemplateEngine;
-    private final MemberRepository memberRepository;
+
+    /**
+     * Send email by type(email, password). <br>
+     * Password type send user to tempt password email(not implement yet)<br>
+     * email type send user to verified code email. <br>
+     * @param emailMessageDto
+     * @param type
+     * @return code(authNum)
+     *
+     *
+     */
     @Override
     public String sendMail(EmailMessageDto emailMessageDto, String type) {
 
@@ -51,6 +68,12 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
+    /**
+     * Check that Email and university name by use <b>university</b> database table.
+     * @param email
+     * @param univ_name
+     * @return boolean
+     */
     @Override
     public boolean isRightEmailAddress(String email, String univ_name) {
         String emailForm = universityRepository.findByName(univ_name).orElseThrow(() -> new EntityNotFoundException("no university name"))
@@ -59,6 +82,13 @@ public class EmailServiceImpl implements EmailService {
         return email.contains(emailForm);
     }
 
+
+    /**
+     * Private method, create random code by size param.
+     * Big, small alphabet, 0~8 number.
+     * @param size
+     * @return String random code
+     */
     private String createCode(int size) {
         Random random = new Random();
         StringBuffer key = new StringBuffer();
@@ -74,6 +104,13 @@ public class EmailServiceImpl implements EmailService {
         return key.toString();
     }
 
+    /**
+     * private method to get html file from <b>resources/template</b> <br>
+     * Get type.html and set variable to code param.
+     * @param code
+     * @param type
+     * @return html file
+     */
     private String setContext(String code, String type) {
         Context context = new Context();
         context.setVariable("code", code);
