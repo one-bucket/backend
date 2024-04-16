@@ -1,4 +1,4 @@
-package com.onebucket.global.exeptionManage.exceptions;
+package com.onebucket.global.exceptionManage.exceptions;
 
 public class AuthorityNotFoundException extends RuntimeException{
     public AuthorityNotFoundException() {

@@ -1,4 +1,4 @@
-package com.onebucket.global.exeptionManage.errorCode;
+package com.onebucket.global.exceptionManage.errorCode;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

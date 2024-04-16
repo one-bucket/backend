@@ -1,7 +1,7 @@
-package com.onebucket.global.exeptionManage.exceptionHandler;
+package com.onebucket.global.exceptionManage.exceptionHandler;
 
-import com.onebucket.global.exeptionManage.errorCode.ErrorCode;
-import com.onebucket.global.exeptionManage.errorCode.UserErrorCode;
+import com.onebucket.global.exceptionManage.errorCode.ErrorCode;
+import com.onebucket.global.exceptionManage.errorCode.UserErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static com.onebucket.global.exeptionManage.exceptionHandler.ErrorResponseGenerator.generateResponse;
+import static com.onebucket.global.exceptionManage.exceptionHandler.ErrorResponseGenerator.generateResponse;
 
 @Order(1)
 @RestControllerAdvice

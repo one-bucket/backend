@@ -1,7 +1,7 @@
-package com.onebucket.global.exeptionManage.exceptionHandler;
+package com.onebucket.global.exceptionManage.exceptionHandler;
 
-import com.onebucket.global.exeptionManage.errorCode.DataAccessErrorCode;
-import com.onebucket.global.exeptionManage.errorCode.ErrorCode;
+import com.onebucket.global.exceptionManage.errorCode.DataAccessErrorCode;
+import com.onebucket.global.exceptionManage.errorCode.ErrorCode;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataAccessException;
@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static com.onebucket.global.exeptionManage.exceptionHandler.ErrorResponseGenerator.generateResponse;
+import static com.onebucket.global.exceptionManage.exceptionHandler.ErrorResponseGenerator.generateResponse;
 
 @Order(1)
 @RestControllerAdvice

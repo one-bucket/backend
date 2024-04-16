@@ -1,10 +1,9 @@
-package com.onebucket.global.exeptionManage;
+package com.onebucket.global.exceptionManage;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.validation.FieldError;
 
 import java.util.List;

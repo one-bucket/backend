@@ -1,17 +1,17 @@
-package com.onebucket.global.exeptionManage.exceptionHandler;
+package com.onebucket.global.exceptionManage.exceptionHandler;
 
-import com.onebucket.global.exeptionManage.errorCode.ErrorCode;
-import com.onebucket.global.exeptionManage.errorCode.RegisterErrorCode;
-import com.onebucket.global.exeptionManage.exceptions.verifiedExceptions.InvalidEmailFormException;
-import com.onebucket.global.exeptionManage.exceptions.verifiedExceptions.InvalidVerifiedCodeException;
-import com.onebucket.global.exeptionManage.exceptions.verifiedExceptions.UnSupportedUniversityException;
-import com.onebucket.global.exeptionManage.exceptions.verifiedExceptions.VerifiedException;
+import com.onebucket.global.exceptionManage.errorCode.ErrorCode;
+import com.onebucket.global.exceptionManage.errorCode.RegisterErrorCode;
+import com.onebucket.global.exceptionManage.exceptions.verifiedExceptions.InvalidEmailFormException;
+import com.onebucket.global.exceptionManage.exceptions.verifiedExceptions.InvalidVerifiedCodeException;
+import com.onebucket.global.exceptionManage.exceptions.verifiedExceptions.UnSupportedUniversityException;
+import com.onebucket.global.exceptionManage.exceptions.verifiedExceptions.VerifiedException;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static com.onebucket.global.exeptionManage.exceptionHandler.ErrorResponseGenerator.generateResponse;
+import static com.onebucket.global.exceptionManage.exceptionHandler.ErrorResponseGenerator.generateResponse;
 
 @Order(1)
 @RestControllerAdvice

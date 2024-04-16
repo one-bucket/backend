@@ -1,4 +1,4 @@
-package com.onebucket.global.exeptionManage.exceptions.verifiedExceptions;
+package com.onebucket.global.exceptionManage.exceptions.verifiedExceptions;
 
 import lombok.NoArgsConstructor;
 

@@ -14,7 +14,19 @@ import org.springframework.web.bind.annotation.*;
 import static com.onebucket.global.utils.SecurityUtils.getCurrentUsername;
 
 /**
+ * Provide 4 endpoints which are
+ * <pre>
+ *     /register/base
+ *     /member/info
+ *     /member/update
+ *     /member/quit
+ * </pre>
+ * Also provide user the CRUD process, none for admin. This class is for user.
+ * Custom Exception may require or provide, especially in {@link com.onebucket.global.exceptionManage.errorCode.UserErrorCode UserErrorCode} <br>
+ * Dependence on MemberService, return ResponseEntity of JSON
  *
+ * @author SangHyeok
+ * @version 0.0.1
  */
 @RestController
 @RequiredArgsConstructor
@@ -24,6 +36,7 @@ public class MemberController {
     private final MemberService memberService;
 
 
+    //need to make new responseMessage, not just String
     @PostMapping("/register/base")
     public ResponseEntity<?> register(@RequestBody CreateMemberRequestDto createMemberRequestDto) {
         memberService.createMember(createMemberRequestDto);
