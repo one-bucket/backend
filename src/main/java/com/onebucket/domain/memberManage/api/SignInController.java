@@ -15,6 +15,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Provide endpoint /sign-in and /test-test. <br>
+ * /test-test endpoint is just for test, to show that aws ec2 server is successfully update to new version of this process.<br>
+ *
+ * Dependence on SignInService, RefreshTokenService
+ *
+ * @author SangHyeok
+ * @version 0.0.1
+ */
 @RestController
 @RequiredArgsConstructor
 @Slf4j

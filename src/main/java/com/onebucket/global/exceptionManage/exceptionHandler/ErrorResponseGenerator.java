@@ -1,7 +1,7 @@
-package com.onebucket.global.exeptionManage.exceptionHandler;
+package com.onebucket.global.exceptionManage.exceptionHandler;
 
-import com.onebucket.global.exeptionManage.ErrorResponse;
-import com.onebucket.global.exeptionManage.errorCode.ErrorCode;
+import com.onebucket.global.exceptionManage.ErrorResponse;
+import com.onebucket.global.exceptionManage.errorCode.ErrorCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 

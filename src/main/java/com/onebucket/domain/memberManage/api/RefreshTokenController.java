@@ -23,6 +23,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Provide endpoint of /token-refresh which for get new token when access token is expired. <br>
+ * Dependence on RefreshTokenService, JwtTokenValidator, JwtTokenProvider.
+ *
+ * @author SangHyeok
+ * @version 0.0.1
+ */
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -36,6 +43,7 @@ public class RefreshTokenController {
     public ResponseEntity<JwtToken> tokenRefresh(HttpServletRequest request,
                                                  @RequestBody RefreshTokenRequestDto refreshTokenRequestDto) {
 
+        //get authorization from http message, header to get authentication in access token, ignore expiration.
         String accessToken = request.getHeader("Authorization");
 
 
@@ -45,7 +53,7 @@ public class RefreshTokenController {
         try {
             jwtTokenValidator.validToken(accessToken);
         } catch(ExpiredJwtException ignore) {
-
+            //ignore expiration of access token.
         } catch(JwtException e) {
             throw  e;
         }
@@ -53,7 +61,7 @@ public class RefreshTokenController {
         String token = refreshTokenRequestDto.getRefreshToken();
         if(token != null & jwtTokenValidator.validToken(token) & refreshTokenService.isTokenExist(token)) {
             Authentication authentication = jwtTokenValidator.getAuthentication(accessToken);
-
+            //create new tokens and return;
             return ResponseEntity.ok(jwtTokenProvider.generateToken(authentication));
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

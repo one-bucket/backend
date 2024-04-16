@@ -6,9 +6,9 @@ import com.onebucket.domain.emailManage.dto.EmailMessageDto;
 import com.onebucket.domain.emailManage.dto.EmailSendDto;
 import com.onebucket.domain.emailManage.service.EmailService;
 import com.onebucket.domain.univInfoManage.service.UniversityService;
-import com.onebucket.global.exeptionManage.exceptions.verifiedExceptions.InvalidEmailFormException;
-import com.onebucket.global.exeptionManage.exceptions.verifiedExceptions.InvalidVerifiedCodeException;
-import com.onebucket.global.exeptionManage.exceptions.verifiedExceptions.UnSupportedUniversityException;
+import com.onebucket.global.exceptionManage.exceptions.verifiedExceptions.InvalidEmailFormException;
+import com.onebucket.global.exceptionManage.exceptions.verifiedExceptions.InvalidVerifiedCodeException;
+import com.onebucket.global.exceptionManage.exceptions.verifiedExceptions.UnSupportedUniversityException;
 import com.onebucket.global.redis.RedisService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  * Also, throw Exception if value is invalid
  * which is
- * {@link com.onebucket.global.exeptionManage.exceptions.verifiedExceptions.VerifiedException VerifiedException}
+ * {@link com.onebucket.global.exceptionManage.exceptions.verifiedExceptions.VerifiedException VerifiedException}
  * and other implementing exception.
- *
+ * @author SangHyoek
+ * @version 0.0.1
  */
 @RestController
 @RequiredArgsConstructor
@@ -68,7 +69,6 @@ public class EmailController {
                 .subject("[one-bucket] 인증 코드 발송")
                 .build();
         String code = emailService.sendMail(emailMessageDto, "email");
-
         redisService.setData("verified: " + emailSendDto.getUsername(), code, 5L);
 
         return ResponseEntity.ok(EmailCodeResponseDto.builder().code(code).build());

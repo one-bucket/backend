@@ -1,7 +1,7 @@
-package com.onebucket.global.exeptionManage.exceptionHandler;
+package com.onebucket.global.exceptionManage.exceptionHandler;
 
-import com.onebucket.global.exeptionManage.errorCode.CommonErrorCode;
-import com.onebucket.global.exeptionManage.errorCode.ErrorCode;
+import com.onebucket.global.exceptionManage.errorCode.CommonErrorCode;
+import com.onebucket.global.exceptionManage.errorCode.ErrorCode;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import static com.onebucket.global.exeptionManage.exceptionHandler.ErrorResponseGenerator.generateResponse;
+import static com.onebucket.global.exceptionManage.exceptionHandler.ErrorResponseGenerator.generateResponse;
 
 @Order(1)
 @RestControllerAdvice
