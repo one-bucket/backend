@@ -17,26 +17,26 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: list file
-        run: ls -la
-      
+      - name: Create application.properties
+        run: |
+          echo "${{ secrets.PROP }}" > ./src/main/resources/application.properties
+        shell: bash
+
+      - name: Display application.properties
+        run: cat ./src/main/resources/application.properties
+        shell: bash
+
       - name: Setup Java JDK 17
         uses: actions/setup-java@v1
         with:
           java-version: 17
-      
+
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
         shell: bash
-        
-      - uses: actions/checkout@v3
-      - run: touch ./src/main/resources/application.properties
-      - run: echo "${{ secrets.PROP }}" > ./src/main/resources/application.properties
-      - run: cat ./src/main/resources/application.properties
-
       # build without test
       - name: Build with Gradle
         run: ./gradlew build -x test
