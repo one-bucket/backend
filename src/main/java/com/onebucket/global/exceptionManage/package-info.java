@@ -36,7 +36,7 @@
  * <br>
  * <h3>1.1.1 UserErrorCode</h3>
  * Provide error code with userDetails status, or signIn Exception.
- * <table border= "userErrorCode";">
+ * <table border= "userErrorCode">
  *      <tr>
  *          <th><span style="color: orange;">name</span></th>
  *          <th><span style="color: orange;">code</span></th>
@@ -86,7 +86,7 @@
  * Provide error code with jwt token, for refresh or access denied protocol in client. Its for {@link com.onebucket.global.auth.jwtAuth.filter.JwtAuthenticationFilter JwtAuthenticationFilter}
  * to make response entity with json, not for handling in exceptionHandler. So, just provide
  * <strong>numeric code, name and type(JWT_ERROR)</strong>, and no HttpStatus.
- * <table border= "JwtErrorCode";">
+ * <table border= "JwtErrorCode">
  *      <tr>
  *          <th><span style="color: orange;">name</span></th>
  *          <th><span style="color: orange;">code</span></th>
@@ -127,7 +127,7 @@
  * <h3>1.1.3 RegisterErrorCode</h3>
  * Provide error when user try to register. Bad request, or else like verified email or create profile.
  * Type of this error is <strong>REGISTER_ERROR</strong>.
- * <table border= "RegisterErrorCode";">
+ * <table border= "RegisterErrorCode">
  *      <tr>
  *          <th><span style="color: orange;">name</span></th>
  *          <th><span style="color: orange;">code</span></th>
@@ -166,7 +166,7 @@
  * <h3>1.2.1 CommonErrorCode</h3>
  * Provide error code caused by communication with client and server, notFound, else
  * Type is <strong>COMMON_ERROR</strong>.
- * <table border= "RegisterErrorCode";">
+ * <table border= "RegisterErrorCode">
  *      <tr>
  *          <th><span style="color: orange;">name</span></th>
  *          <th><span style="color: orange;">code</span></th>
