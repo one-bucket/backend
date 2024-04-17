@@ -20,6 +20,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+        shell: bash
+        
       - name: Create application.properties
         run: |
           echo "${{ secrets.PROP }}" > ./src/main/resources/application.properties
@@ -34,9 +38,6 @@ jobs:
         with:
           java-version: 17
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
-        shell: bash
       # build without test
       - name: Build with Gradle
         run: ./gradlew build -x test
