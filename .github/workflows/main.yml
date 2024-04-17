@@ -12,6 +12,13 @@ env:
   BUCKET_NAME: one-bucket-bucket
   CODE_DEPLOY_APP_NAME: one-bucket-cd
   DEPLOYMENT_GROUP_NAME: one-bucket-cd-group
+  DATABASE_ID: ${{ secrets.DATABASE_ID }}
+  DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  JWT_KEY: ${{ secrets.JWT_KEY }}
+  MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+  MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+  REDIS_URL: ${{ secrets.REDIS_URL }}
 
 jobs:
   build:
