@@ -36,7 +36,6 @@
  * <br>
  * <h3>1.1.1 UserErrorCode</h3>
  * Provide error code with userDetails status, or signIn Exception.
- * <!--userErrorCode 코드 테이블-->
  * <table border= "userErrorCode";">
  *      <tr>
  *          <th><span style="color: orange;">name</span></th>
@@ -74,7 +73,6 @@
  *          <th>internal server error(500)</th>
  *      </tr>
  * </table>
- * <!--에러 코드 describe-->
  * <pre>
 - 1001 : locked in UserDetails by authorization or security issue.
 - 1002 : user should update password or else.
@@ -88,7 +86,6 @@
  * Provide error code with jwt token, for refresh or access denied protocol in client. Its for {@link com.onebucket.global.auth.jwtAuth.filter.JwtAuthenticationFilter JwtAuthenticationFilter}
  * to make response entity with json, not for handling in exceptionHandler. So, just provide
  * <strong>numeric code, name and type(JWT_ERROR)</strong>, and no HttpStatus.
- * <!-- JwtErrorCode 코드 테이블-->
  * <table border= "JwtErrorCode";">
  *      <tr>
  *          <th><span style="color: orange;">name</span></th>
@@ -130,7 +127,6 @@
  * <h3>1.1.3 RegisterErrorCode</h3>
  * Provide error when user try to register. Bad request, or else like verified email or create profile.
  * Type of this error is <strong>REGISTER_ERROR</strong>.
- * <!-- RegisterErrorCode 코드 테이블-->
  * <table border= "RegisterErrorCode";">
  *      <tr>
  *          <th><span style="color: orange;">name</span></th>
@@ -158,7 +154,6 @@
  *          <th>internal server error(500)</th>
  *      </tr>
  * </table> <br>
- * <!--error code describe-->
  * <pre>
  1200 : no school in database.
  1201 : no matching with school and email.
