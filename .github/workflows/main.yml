@@ -31,21 +31,17 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
         shell: bash
+        
+      - uses: actions/checkout@v3
+      - run: touch ./src/main/resources/application.properties
+      - run: echo "${{ secrets.PROP }}" > ./src/main/resources/application.properties
+      - run: cat ./src/main/resources/application.properties
 
       # build without test
       - name: Build with Gradle
         run: ./gradlew build -x test
         shell: bash
         
-      - name: Replace environment variables in application.properties
-        run: |
-          sed -i 's|${DATABASE_URL}|'"${{ secrets.DATABASE_URL }}"'|g' src/main/resources/application.properties
-          sed -i 's|${DATABASE_ID}|'"${{ secrets.DATABASE_ID }}"'|g' src/main/resources/application.properties
-          sed -i 's|${DATABASE_PASSWORD}|'"${{ secrets.DATABASE_PASSWORD }}"'|g' src/main/resources/application.properties
-          sed -i 's|${JWT_KEY}|'"${{ secrets.JWT_KEY }}"'|g' src/main/resources/application.properties
-          sed -i 's|${MAIL_USERNAME}|'"${{ secrets.MAIL_USERNAME }}"'|g' src/main/resources/application.properties
-          sed -i 's|${MAIL_PASSWORD}|'"${{ secrets.MAIL_PASSWORD }}"'|g' src/main/resources/application.properties
-          sed -i 's|${REDIS_URL}|'"${{ secrets.REDIS_URL }}"'|g' src/main/resources/application.properties
 
 
 #      - name: Start MySQL
