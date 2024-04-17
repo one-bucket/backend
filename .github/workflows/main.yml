@@ -12,13 +12,6 @@ env:
   BUCKET_NAME: one-bucket-bucket
   CODE_DEPLOY_APP_NAME: one-bucket-cd
   DEPLOYMENT_GROUP_NAME: one-bucket-cd-group
-  DATABASE_ID: ${{ secrets.DATABASE_ID }}
-  DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-  DATABASE_URL: ${{ secrets.DATABASE_URL }}
-  JWT_KEY: ${{ secrets.JWT_KEY }}
-  MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
-  MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
-  REDIS_URL: ${{ secrets.REDIS_URL }}
 
 jobs:
   build:
@@ -43,6 +36,17 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build -x test
         shell: bash
+        
+      - name: Replace environment variables in application.properties
+        run: |
+          sed -i 's|${DATABASE_URL}|'"${{ secrets.DATABASE_URL }}"'|g' src/main/resources/application.properties
+          sed -i 's|${DATABASE_ID}|'"${{ secrets.DATABASE_ID }}"'|g' src/main/resources/application.properties
+          sed -i 's|${DATABASE_PASSWORD}|'"${{ secrets.DATABASE_PASSWORD }}"'|g' src/main/resources/application.properties
+          sed -i 's|${JWT_KEY}|'"${{ secrets.JWT_KEY }}"'|g' src/main/resources/application.properties
+          sed -i 's|${MAIL_USERNAME}|'"${{ secrets.MAIL_USERNAME }}"'|g' src/main/resources/application.properties
+          sed -i 's|${MAIL_PASSWORD}|'"${{ secrets.MAIL_PASSWORD }}"'|g' src/main/resources/application.properties
+          sed -i 's|${REDIS_URL}|'"${{ secrets.REDIS_URL }}"'|g' src/main/resources/application.properties
+
 
 #      - name: Start MySQL
 #        uses: samin/mysql-action@v1.3
