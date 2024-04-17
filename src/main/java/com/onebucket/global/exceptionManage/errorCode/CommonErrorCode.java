@@ -18,6 +18,6 @@ public enum CommonErrorCode implements ErrorCode {
 
     @Override
     public String getType() {
-        return "IM_AN_APPLE_PIE";
+        return "COMMON_ERROR";
     }
 }
