@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Also, throw Exception if value is invalid
  * which is
  * {@link com.onebucket.global.exceptionManage.exceptions.verifiedExceptions.VerifiedException VerifiedException}
- * and other implementing exception.
+ * and other implementing exception..
  * @author SangHyoek
  * @version 0.0.1
  */
