@@ -54,6 +54,8 @@ dependencies {
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
 
 tasks.named('test') {
