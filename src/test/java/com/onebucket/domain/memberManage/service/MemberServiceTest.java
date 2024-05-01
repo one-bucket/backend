@@ -24,6 +24,28 @@ import static org.codehaus.groovy.runtime.DefaultGroovyMethods.any;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ <h1>Test the MemberService!</h1>
+ <hr><hr>
+ <h2>How to test MemberService?</h2>
+ The test is conducted using the doReturn() method and the assertThat() method.
+ <ol>
+    <li>doReturn() : doReturn() is a method used in a mocking framework such as Mockito, which is used to specify a return value for a particular method call.</li>
+    <li>assertThat() : assertThat() is used to verify certain conditions in the test code, for example, it can be used in a variety of situations, such as verifying that the return value of a method call matches the expected value, or that the size of the list is the same as the expected value.</li>
+ </ol>
+ <hr><hr>
+ There are four methods in the member repository.
+ <ul>
+     <li>createMember(CreateMemberRequestDto createMemberRequestDto)</li>
+     <li>readMember(String username)</li>
+     <li>updateMember(String username, UpdateMemberRequestDto updateMemberRequestDto)</li>
+     <li>deleteMember(String username)</li>
+ </ul>
+ <h2>1. createMember</h2>
+ Test using the 멤버생성성공() method. Create CreateMemberRequestDto and create a member using the createMember() method.After that, check whether the memberRepository is empty or not. The client does not need any other authentication.
+ <h2>2. updateMember</h2>
+ Test using the 멤버수정성공() method. When the findByUsername() method is called, a doReturn() code is written to return a member object with nickname hahaha. Then, change the nickname to "changeNickName" and getNickName() to check if the nickname is "changeNickName". It is accessible only to users with authentication.
+ */
 @ExtendWith(MockitoExtension.class)
 class MemberServiceTest {
     @Mock
@@ -54,10 +76,11 @@ class MemberServiceTest {
 
     @Test
     void 멤버수정성공() {
-        doReturn(Optional.of(member())).when(memberRepository).findByUsername("hongik");
+        Optional<Member> memberOptional = Optional.of(member());
+        doReturn(memberOptional).when(memberRepository).findByUsername("hongik");
 
-        UpdateMemberRequestDto updateMemberRequestDto = new UpdateMemberRequestDto("yonsei");
+        UpdateMemberRequestDto updateMemberRequestDto = new UpdateMemberRequestDto("changeNickName");
         memberService.updateMember("hongik", updateMemberRequestDto);
-        assertThat(memberRepository.findByUsername("yonsei")).isNotNull();
+        assertThat(memberOptional.get().getNickName()).isEqualTo("changeNickName");
     }
 }
