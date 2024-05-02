@@ -34,12 +34,10 @@ import static org.mockito.Mockito.*;
     <li>assertThat() : assertThat() is used to verify certain conditions in the test code, for example, it can be used in a variety of situations, such as verifying that the return value of a method call matches the expected value, or that the size of the list is the same as the expected value.</li>
  </ol>
  <hr><hr>
- There are four methods in the member repository.
+ Among the methods in MemberService, we test the following two methods.
  <ul>
      <li>createMember(CreateMemberRequestDto createMemberRequestDto)</li>
-     <li>readMember(String username)</li>
      <li>updateMember(String username, UpdateMemberRequestDto updateMemberRequestDto)</li>
-     <li>deleteMember(String username)</li>
  </ul>
  <h2>1. createMember</h2>
  Test using the 멤버생성성공() method. Create CreateMemberRequestDto and create a member using the createMember() method.After that, check whether the memberRepository is empty or not. The client does not need any other authentication.

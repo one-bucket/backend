@@ -4,6 +4,7 @@ import com.onebucket.domain.memberManage.dto.CreateMemberRequestDto;
 import com.onebucket.domain.memberManage.dto.UpdateMemberRequestDto;
 import com.onebucket.domain.memberManage.service.MemberService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +39,7 @@ public class MemberController {
 
     //need to make new responseMessage, not just String
     @PostMapping("/register/base")
-    public ResponseEntity<?> register(@RequestBody CreateMemberRequestDto createMemberRequestDto) {
+    public ResponseEntity<?> register(@Valid @RequestBody CreateMemberRequestDto createMemberRequestDto) {
         memberService.createMember(createMemberRequestDto);
         return ResponseEntity.ok("success register");
     }
@@ -50,7 +51,7 @@ public class MemberController {
     }
 
     @PostMapping("/member/update")
-    public ResponseEntity<?> memberUpdate(@RequestBody UpdateMemberRequestDto updateMemberRequestDto) {
+    public ResponseEntity<?> memberUpdate(@Valid @RequestBody UpdateMemberRequestDto updateMemberRequestDto) {
         String username = getCurrentUsername();
         memberService.updateMember(username, updateMemberRequestDto);
         return ResponseEntity.ok("success update");
