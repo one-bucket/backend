@@ -28,21 +28,19 @@ import static org.mockito.Mockito.*;
  <h1>Test the MemberService!</h1>
  <hr><hr>
  <h2>How to test MemberService?</h2>
- The test is conducted using the doReturn() method and the assertThat() method.
+ The test is using the {@code doReturn()} method and the {@code assertThat()} method.
  <ol>
-    <li>doReturn() : doReturn() is a method used in a mocking framework such as Mockito, which is used to specify a return value for a particular method call.</li>
-    <li>assertThat() : assertThat() is used to verify certain conditions in the test code, for example, it can be used in a variety of situations, such as verifying that the return value of a method call matches the expected value, or that the size of the list is the same as the expected value.</li>
+    <li>{@code doReturn()} : {@code doReturn()} is a method used in a mocking framework such as Mockito, which is used to specify a return value for a particular method call.</li>
+    <li>{@code assertThat()} : {@code assertThat()} is used to verify certain conditions in the test code. For example, it can be used in a variety of situations, such as verifying that the return value of a method call matches the expected value, or that the size of the list is the same as the expected value.</li>
  </ol>
- <hr><hr>
+ <h2>What methods we test?</h2>
  Among the methods in MemberService, we test the following two methods.
  <ul>
-     <li>createMember(CreateMemberRequestDto createMemberRequestDto)</li>
-     <li>updateMember(String username, UpdateMemberRequestDto updateMemberRequestDto)</li>
+     <li>{@code createMember(CreateMemberRequestDto createMemberRequestDto)}</li>
+     <li>{@code updateMember(String username, UpdateMemberRequestDto updateMemberRequestDto)}</li>
  </ul>
- <h2>1. createMember</h2>
- Test using the 멤버생성성공() method. Create CreateMemberRequestDto and create a member using the createMember() method.After that, check whether the memberRepository is empty or not. The client does not need any other authentication.
- <h2>2. updateMember</h2>
- Test using the 멤버수정성공() method. When the findByUsername() method is called, a doReturn() code is written to return a member object with nickname hahaha. Then, change the nickname to "changeNickName" and getNickName() to check if the nickname is "changeNickName". It is accessible only to users with authentication.
+ @author Han Seung Hoon
+ @version 0.0.1
  */
 @ExtendWith(MockitoExtension.class)
 class MemberServiceTest {
@@ -61,6 +59,10 @@ class MemberServiceTest {
                 .build();
     }
 
+    /**
+     * <h2>Test: {@code createMember}</h2>
+     * create a member using the {@code createMember()} method. After that, check whether the memberRepository is empty or not. The client does not need any other authentication.
+     */
     @Test
     void 멤버생성성공() {
         CreateMemberRequestDto createMemberRequestDto = CreateMemberRequestDto.builder()
@@ -72,13 +74,17 @@ class MemberServiceTest {
         assertThat(memberRepository.findAll()).isNotNull();
     }
 
+    /**
+     * <h2>Test : {@code updateMember}</h2>
+     * Change the member's username "hongik" to "changedNickName" and see if it's changed well.
+     * */
     @Test
     void 멤버수정성공() {
         Optional<Member> memberOptional = Optional.of(member());
         doReturn(memberOptional).when(memberRepository).findByUsername("hongik");
 
-        UpdateMemberRequestDto updateMemberRequestDto = new UpdateMemberRequestDto("changeNickName");
+        UpdateMemberRequestDto updateMemberRequestDto = new UpdateMemberRequestDto("changedNickName");
         memberService.updateMember("hongik", updateMemberRequestDto);
-        assertThat(memberOptional.get().getNickName()).isEqualTo("changeNickName");
+        assertThat(memberOptional.get().getNickName()).isEqualTo("changedNickName");
     }
 }

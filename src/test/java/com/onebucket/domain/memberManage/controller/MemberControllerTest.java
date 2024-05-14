@@ -6,6 +6,7 @@ import com.onebucket.domain.memberManage.domain.Member;
 import com.onebucket.domain.memberManage.dto.CreateMemberRequestDto;
 import com.onebucket.domain.memberManage.service.MemberService;
 import com.onebucket.global.utils.SecurityUtils;
+import jakarta.servlet.ServletException;
 import jdk.dynalink.beans.StaticClass;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
@@ -36,22 +37,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  <hr><hr>
  <h2>How to test MemberController?</h2>
  <ol>
-    <li>Set Up MockMvc: MockMvc is the main entry point for server-side Spring MVC test support. You can create an instance of MockMvc by using MockMvcBuilders.standaloneSetup() and pass your controller instance to it.</li>
-    <li>Inject Mocks: Use @MockBean annotation to inject mocked dependencies (in this case, MemberService) into the Spring application context.</li>
-    <li>Write Test Cases: Write test cases using the mockMvc.perform() method to perform HTTP requests and assertions to verify the expected behavior.</li>
+    <li>Set Up MockMvc: MockMvc is the main entry point for server-side Spring MVC test support. You can create an instance of MockMvc by using {@code MockMvcBuilders.standaloneSetup()} and pass your controller instance to it.</li>
+    <li>Inject Mocks: Use {@code @MockBean} annotation to inject mocked dependencies (in this case, MemberService) into the Spring application context.</li>
+    <li>Write Test Cases: Write test cases using the {@code mockMvc.perform()} method to perform HTTP requests and assertions to verify the expected behavior.</li>
  </ol>
- <hr><hr>
- Among the methods in MemberController, we test the following two methods.
- <ul>
-    <li>register</li>
-    <li>memberInfo</li>
- </ul>
-<h2>1. Test : register </h2>
- During membership registration, there was a blank in the user input value, so a test with a 400 BadRequest error and a normal membership test were conducted.
- <h2>2. Test : memberInfo</h2>
- In the process of outputting the information of the currently logged-in user, a RuntimeException error occurred by accessing an account other than his or her account and successfully printing the information of his or her account were written as tests.
- At this time, fake SecurityContext and fake authentication must be created for authentication to pass the test, and the securityContext must be initialized before each test starts to not affect other tests.
-
+ <h2>About {@code mockMvc.perform()}</h2>
+ {@code mockMvc.perform()} is a method that performs HTTP requests using MockMvc, a testing framework for Spring MVC, which allows you to test the controller of a web application.
+ When invoking {@code mockMvc.perform()}, you can:
+ <ol>
+    <li>Configuring HTTP requests (using methods such as get, post, put, delete, etc.)</li>
+    <li>Set the request's header</li>
+    <li>Set the body of the request (JSON, form parameters, etc.)</li>
+    <li>Verification of the request (response code, header, body, etc.)</li>
+ </ol>
+ @author Han Seung Hoon
+ @version 0.0.1
  */
 @ExtendWith(MockitoExtension.class)
 public class MemberControllerTest {
@@ -79,14 +79,21 @@ public class MemberControllerTest {
                 .build();
     }
 
-    private CreateMemberRequestDto memberEmpty() {
+    private CreateMemberRequestDto memberNoUserName() {
         return CreateMemberRequestDto.builder()
                 .username(" ")
                 .password("12341234")
                 .nickName("hahaha")
                 .build();
     }
-    // 현재 dto 객체의 @NotBlank 유효성 검사가 진행이 안되는듯. 어떻게 빈칸을 에러로 발생시키나?
+
+    /**
+     * <h2> Test : {@code Register()} </h2>
+     *  During member registration, there was a blank in the {@code CreateMemberRequestDto}, so a test with a 400 BadRequest error and a normal membership test were conducted.
+     * @throws Exception
+     *         An exception occurs when there is a blank space in the {@code CreateMemberRequestDto} value.
+     *
+     */
     @Test
     void 회원가입실패_입력값에빈칸이있음() throws Exception {
         //given
@@ -94,12 +101,18 @@ public class MemberControllerTest {
         //when
         final ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post(url)
-                        .content(gson.toJson(memberEmpty()))
+                        .content(gson.toJson(memberNoUserName()))
                         .contentType(MediaType.APPLICATION_JSON));
         // then
         resultActions.andExpect(status().isBadRequest());
     }
 
+    /**
+     * <h2> Test : {@code Register()} </h2>
+     * It is a test that receives the correct user input and succeeds.
+     * @throws Exception
+     *         An exception occurs when there is a blank space in the {@code CreateMemberRequestDto} value.
+     */
     @Test
     void 회원가입성공() throws Exception {
         //given
@@ -114,16 +127,26 @@ public class MemberControllerTest {
         resultActions.andExpect(status().isOk());
     }
 
+    /**
+     * <h2> Test : {@code memberInfo()} </h2>
+     *  A servletExceptionError occurs by calling memberInfo() without logging in.
+     */
     @Test
     void 멤버조회실패_권한이없음() {
         final String url = "/member/info";
 
-        assertThrows(Exception.class, () ->
+        assertThrows(ServletException.class, () ->
                 mockMvc.perform(MockMvcRequestBuilders.get(url)
                         .contentType(MediaType.APPLICATION_JSON))
         );
     }
 
+    /**
+     * <h2> Test : {@code memberInfo()} </h2>
+     * To pass the test, fake SecurityContext and fake authentication must be created for authentication.
+     * @throws Exception
+     *         An exception occurs when there is no authentication in SecurityContext.
+     */
     @Test
     void 멤버조회성공() throws Exception {
         final String url = "/member/info";
